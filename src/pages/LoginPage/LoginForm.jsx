@@ -1,12 +1,15 @@
 import { useState } from "react";
 import * as usersService from "../../utilities/users-service";
+import { useSetAtom } from "jotai";
+import { userAtom } from "../App/User";
 
-export default function LoginForm({ setUser }) {
+export default function LoginForm() {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
   const [error, setError] = useState("");
+  const setUser = useSetAtom(userAtom);
 
   function handleChange(evt) {
     setCredentials({ ...credentials, [evt.target.name]: evt.target.value });

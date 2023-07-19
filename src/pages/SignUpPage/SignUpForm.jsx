@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { signUp } from "../../utilities/users-service";
 import { useNavigate } from "react-router-dom";
+import { useSetAtom } from "jotai";
+import { userAtom } from "../App/User";
 
-export default function SignUpForm({ setUser }) {
+export default function SignUpForm() {
   const [newUser, setNewUser] = useState({
     firstName: "",
     lastName: "",
@@ -11,6 +13,7 @@ export default function SignUpForm({ setUser }) {
     confirmPW: "",
     errorMessage: "",
   });
+  const setUser = useSetAtom(userAtom);
   const navigate = useNavigate();
 
   const handleChange = (event) => {

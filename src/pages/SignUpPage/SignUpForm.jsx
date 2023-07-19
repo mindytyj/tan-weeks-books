@@ -2,7 +2,7 @@ import { useState } from "react";
 import { signUp } from "../../utilities/users-service";
 import { useNavigate } from "react-router-dom";
 import { useSetAtom } from "jotai";
-import { userAtom } from "../App/User";
+import { userAtom } from "../../utilities/userContext";
 
 export default function SignUpForm() {
   const [newUser, setNewUser] = useState({

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as usersService from "../../utilities/users-service";
 import { useSetAtom } from "jotai";
-import { userAtom } from "../App/User";
+import { userAtom } from "../../utilities/userContext";
 
 export default function LoginForm() {
   const [credentials, setCredentials] = useState({

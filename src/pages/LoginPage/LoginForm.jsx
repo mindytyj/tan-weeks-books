@@ -2,6 +2,7 @@ import { useState } from "react";
 import * as usersService from "../../utilities/users-service";
 import { useSetAtom } from "jotai";
 import { userAtom } from "../../utilities/userContext";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
   const [credentials, setCredentials] = useState({
@@ -10,6 +11,7 @@ export default function LoginForm() {
   });
   const [error, setError] = useState("");
   const setUser = useSetAtom(userAtom);
+  const navigate = useNavigate();
 
   function handleChange(evt) {
     setCredentials({ ...credentials, [evt.target.name]: evt.target.value });
@@ -21,6 +23,10 @@ export default function LoginForm() {
     try {
       const user = await usersService.login(credentials);
       setUser(user);
+
+      if (user) {
+        navigate("/");
+      }
     } catch {
       setError("Login Failed. Please Try Again.");
     }

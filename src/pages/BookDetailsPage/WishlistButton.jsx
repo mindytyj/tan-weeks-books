@@ -1,8 +1,8 @@
 import { useAtomValue } from "jotai";
 import { userAtom } from "../../utilities/userContext";
 import sendRequest from "../../utilities/send-request";
-import { useState } from "react";
 import { bookAtom } from "./bookContext";
+import { useState } from "react";
 
 export default function WishlistButton() {
   const user = useAtomValue(userAtom);
@@ -11,26 +11,39 @@ export default function WishlistButton() {
 
   async function addToWishlist() {
     if (user === null) {
-      setWishlistMsg("Join as a T-WB member to add to your wishlist.");
+      setWishlistMsg("Join as a T-WB member to add to wishlist.");
+      return;
     }
 
     try {
-      const response = await sendRequest("/api/wishlists", "POST", {
+      await sendRequest("/api/wishlists", "POST", {
         bookId: parseInt(book.id),
         userId: parseInt(user.id),
       });
-      const jsonData = await response.json();
-      setWishlistMsg(jsonData);
-    } catch (error) {
-      setWishlistMsg(error.message);
+      setWishlistMsg("Book has been added to your wishlist!");
+    } catch {
+      setWishlistMsg("The book is already in your wishlist.");
     }
   }
 
   return (
-    <button
-      className="uk-icon-button uk-button-danger"
-      uk-icon="heart"
-      onClick={addToWishlist}
-    />
+    <>
+      <button
+        className="uk-icon-button uk-button-danger "
+        uk-icon="heart"
+        onClick={addToWishlist}
+        data-uk-toggle="target: #wishlistModal"
+      />
+      <div id="wishlistModal" className="uk-flex-top" data-uk-modal>
+        <div className="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+          <button
+            className="uk-modal-close-default"
+            type="button"
+            data-uk-close
+          />
+          <p className="uk-text-center">{wishlistMsg}</p>
+        </div>
+      </div>
+    </>
   );
 }

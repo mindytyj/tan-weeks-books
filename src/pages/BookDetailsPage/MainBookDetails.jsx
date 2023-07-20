@@ -1,9 +1,26 @@
-import WishlistModal from "./WishlistModal";
+import { useAtomValue } from "jotai";
+import { userAtom } from "../../utilities/userContext";
+import sendRequest from "../../utilities/send-request";
+import { useState } from "react";
 
 export default function MainBookDetails({ book }) {
-  function addWishlist() {
-    console.log("Clicked");
-    <WishlistModal />;
+  const user = useAtomValue(userAtom);
+  const [wishlistMsg, setWishlistMsg] = useState("");
+
+  async function addToWishlist() {
+    if (user === null) {
+      setWishlistMsg("Join as a T-WB member to add to your wishlist.");
+    }
+
+    try {
+      await sendRequest("/api/wishlists", "POST", {
+        bookId: parseInt(book.id),
+        userId: parseInt(user.id),
+      });
+      setWishlistMsg("Book has been added to your wishlist.");
+    } catch {
+      setWishlistMsg("Failed to add book to your wishlist.");
+    }
   }
 
   return (
@@ -27,7 +44,7 @@ export default function MainBookDetails({ book }) {
               <button
                 className="uk-icon-button uk-button-danger"
                 uk-icon="heart"
-                onClick={addWishlist}
+                onClick={addToWishlist}
               />
             </div>
           </div>

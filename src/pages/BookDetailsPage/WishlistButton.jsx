@@ -29,7 +29,7 @@ export default function WishlistButton() {
   return (
     <>
       <button
-        className="uk-icon-button uk-button-danger "
+        className="uk-icon-button uk-button-danger uk-margin-left "
         uk-icon="heart"
         onClick={addToWishlist}
         data-uk-toggle="target: #wishlistModal"

@@ -1,27 +1,9 @@
 import { useAtomValue } from "jotai";
-import { userAtom } from "../../utilities/userContext";
-import sendRequest from "../../utilities/send-request";
-import { useState } from "react";
+import WishlistButton from "./WishlistButton";
+import { bookAtom } from "./bookContext";
 
-export default function MainBookDetails({ book }) {
-  const user = useAtomValue(userAtom);
-  const [wishlistMsg, setWishlistMsg] = useState("");
-
-  async function addToWishlist() {
-    if (user === null) {
-      setWishlistMsg("Join as a T-WB member to add to your wishlist.");
-    }
-
-    try {
-      await sendRequest("/api/wishlists", "POST", {
-        bookId: parseInt(book.id),
-        userId: parseInt(user.id),
-      });
-      setWishlistMsg("Book has been added to your wishlist.");
-    } catch {
-      setWishlistMsg("Failed to add book to your wishlist.");
-    }
-  }
+export default function MainBookDetails() {
+  const book = useAtomValue(bookAtom);
 
   return (
     <div className="uk-section uk-section-secondary uk-preserve-color">
@@ -41,11 +23,7 @@ export default function MainBookDetails({ book }) {
               <button className="uk-button uk-button-primary uk-margin-right">
                 Add to Cart
               </button>
-              <button
-                className="uk-icon-button uk-button-danger"
-                uk-icon="heart"
-                onClick={addToWishlist}
-              />
+              <WishlistButton />
             </div>
           </div>
         </div>

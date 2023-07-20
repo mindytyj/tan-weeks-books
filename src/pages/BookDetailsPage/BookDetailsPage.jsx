@@ -5,10 +5,12 @@ import Reviews from "./Reviews";
 import MainBookDetails from "./MainBookDetails";
 import BookDescription from "./BookDescription";
 import SubBookDetails from "./SubBookDetails";
+import { useSetAtom } from "jotai";
+import { bookAtom } from "./bookContext";
 
 export default function BooksDetailPage() {
   const { id } = useParams();
-  const [book, setBook] = useState([]);
+  const setBook = useSetAtom(bookAtom);
 
   useEffect(() => {
     async function getBookDetails() {
@@ -20,9 +22,9 @@ export default function BooksDetailPage() {
 
   return (
     <div className="uk-container uk-padding">
-      <MainBookDetails book={book} />
-      <BookDescription book={book} />
-      <SubBookDetails book={book} />
+      <MainBookDetails />
+      <BookDescription />
+      <SubBookDetails />
       <Reviews />
     </div>
   );

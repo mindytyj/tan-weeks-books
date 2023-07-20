@@ -1,4 +1,9 @@
-export default function SubBookDetails({ book }) {
+import { useAtomValue } from "jotai";
+import { bookAtom } from "./bookContext";
+
+export default function SubBookDetails() {
+  const book = useAtomValue(bookAtom);
+
   return (
     <div className="uk-section uk-section-secondary uk-preserve-color">
       <div className="uk-container uk-margin-left uk-margin-right">

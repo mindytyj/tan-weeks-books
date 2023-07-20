@@ -12,7 +12,6 @@ async function retrieveWishlist(req, res) {
 }
 
 async function addToWishlist(req, res) {
-  let wishlistMsg = "";
   try {
     const checkDuplicate = await pool.query(
       `SELECT book_id, user_id FROM wishlists WHERE book_id = ${req.body.bookId} AND user_id = ${req.body.userId}`
@@ -22,15 +21,13 @@ async function addToWishlist(req, res) {
       checkDuplicate?.rows[0]?.book_id === req.body.bookId &&
       checkDuplicate?.rows[0]?.user_id === req.body.userId
     ) {
-      wishlistMsg = "Book already in wishlist.";
       throw new Error("Book is already in wishlist.");
     }
 
     await pool.query(
       `INSERT INTO wishlists (book_id, user_id) VALUES (${req.body.bookId}, ${req.body.userId})`
     );
-    wishlistMsg = "Successfully added book to wishlist.";
-    res.status(200).json(wishlistMsg);
+    res.status(200).json("Successfully added book to wishlist.");
   } catch (error) {
     res.status(400).json(error.message);
   }

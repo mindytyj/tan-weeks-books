@@ -1,13 +1,14 @@
 const { pool } = require("../../config/database");
 
 async function retrieveCart(req, res) {
+  const userId = req.params.userId;
   try {
-    const wishlist = await pool.query(
-      `SELECT * FROM wishlists INNER JOIN books ON books.id = wishlists.book_id INNER JOIN users WHERE users.id = wishlists.user_id`
+    const cart = await pool.query(
+      `SELECT books.title, carts.qty, users.first_name, users.last_name FROM carts JOIN books ON books.id = carts.book_id JOIN users ON users.id = carts.user_id WHERE carts.user_id = ${userId};`
     );
-    res.status(200).json(wishlist.rows);
+    res.status(200).json(cart);
   } catch (error) {
-    res.status(400).json("Unable to retrieve wishlist.");
+    res.status(400).json("Unable to retrieve cart items.");
   }
 }
 

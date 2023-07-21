@@ -13,7 +13,9 @@ export default function BookCard({ book }) {
       <div className="uk-card-body">
         <p>${book.price}</p>
         <AddToCartButton book={book} />
-        <StockLabel book={book} />
+        <p>
+          <StockLabel book={book} />
+        </p>
       </div>
     </div>
   );

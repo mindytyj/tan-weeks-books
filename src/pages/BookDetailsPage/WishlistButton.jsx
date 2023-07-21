@@ -20,7 +20,7 @@ export default function WishlistButton() {
         bookId: parseInt(book.id),
         userId: parseInt(user.id),
       });
-      setWishlistMsg("Book has been added to your wishlist!");
+      setWishlistMsg("Book has been successfully added to your wishlist!");
     } catch {
       setWishlistMsg("The book is already in your wishlist.");
     }

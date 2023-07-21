@@ -1,18 +1,8 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import AddToCartButton from "../../components/AddToCartButton/AddToCartButton";
+import StockLabel from "../../components/StockLabel/StockLabel";
 
 export default function BookCard({ book }) {
-  const [available, setAvailable] = useState(true);
-
-  useEffect(() => {
-    async function checkStock() {
-      if (parseInt(book.qty) === 0) {
-        setAvailable(false);
-      }
-    }
-    checkStock();
-  }, [book.qty]);
-
   return (
     <div className="uk-card uk-card-default">
       <div className="uk-card-media-top">
@@ -22,17 +12,8 @@ export default function BookCard({ book }) {
       </div>
       <div className="uk-card-body">
         <p>${book.price}</p>
-        <button
-          className="uk-button uk-button-primary uk-align-center"
-          disabled={!available}
-        >
-          Add to Cart
-        </button>
-        {available ? (
-          <span className="uk-label uk-label-success">Available</span>
-        ) : (
-          <span className="uk-label uk-label-danger">Out of Stock</span>
-        )}
+        <AddToCartButton book={book} />
+        <StockLabel book={book} />
       </div>
     </div>
   );

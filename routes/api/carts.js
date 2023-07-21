@@ -5,6 +5,6 @@ const ensureLoggedIn = require("../../config/ensureLoggedIn");
 const { pool } = require("../../config/database");
 
 router.get("/:userId", ensureLoggedIn, cartsCtrl.retrieveCart);
-router.post("/", cartsCtrl.addToCart);
+router.post("/", ensureLoggedIn, cartsCtrl.addToCart);
 
 module.exports = router;

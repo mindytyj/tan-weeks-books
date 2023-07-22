@@ -19,7 +19,7 @@ export default function BooksPage() {
 
   return (
     <div className="uk-container uk-padding">
-      <div className="uk-section uk-section-secondary uk-preserve-color">
+      <div className="uk-section uk-section- uk-preserve-color">
         <div className="uk-container uk-margin-left uk-margin-right">
           <div
             className="uk-grid-column-medium uk-child-width-1-4@s uk-grid-match uk-text-center"

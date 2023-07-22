@@ -5,7 +5,7 @@ export default function SubBookDetails() {
   const book = useAtomValue(bookAtom);
 
   return (
-    <div className="uk-section uk-section-secondary uk-preserve-color">
+    <div className="uk-section uk-section-default uk-preserve-color">
       <div className="uk-container uk-margin-left uk-margin-right">
         <div className="uk-column-1-2 uk-column-divider">
           <div>

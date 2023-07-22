@@ -8,7 +8,7 @@ export default function MainBookDetails() {
   const book = useAtomValue(bookAtom);
 
   return (
-    <div className="uk-section uk-section-secondary uk-preserve-color">
+    <div className="uk-section uk-section-default uk-preserve-color">
       <div className="uk-container uk-margin-left uk-margin-right">
         <div
           className="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin"

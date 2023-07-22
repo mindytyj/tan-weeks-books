@@ -1,6 +1,10 @@
+import { useAtomValue } from "jotai";
 import CartItem from "./CartItem";
+import { cartAtom } from "./cartContext";
 
-export default function CartTable({ cartItems, user }) {
+export default function CartTable({ user }) {
+  const cartItems = useAtomValue(cartAtom);
+
   return (
     <table className="uk-table uk-table-justify">
       <thead>

@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import sendRequest from "../../utilities/send-request";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { userAtom } from "../../utilities/userContext";
 import CheckOut from "./CheckOut";
 import CartTable from "./CartTable";
+import { cartAtom } from "./cartContext";
 
 export default function CartPage() {
-  const [cartItems, setCartItems] = useState([]);
+  const setCartItems = useSetAtom(cartAtom);
   const user = useAtomValue(userAtom);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ export default function CartPage() {
       <div className="uk-container uk-margin-left uk-margin-right">
         <div className="uk-width-3-4 uk-align-center">
           <div className="uk-overflow-auto">
-            <CartTable cartItems={cartItems} user={user} />
+            <CartTable user={user} />
           </div>
         </div>
         <CheckOut />

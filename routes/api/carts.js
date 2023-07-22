@@ -6,5 +6,6 @@ const { pool } = require("../../config/database");
 
 router.get("/:userId", ensureLoggedIn, cartsCtrl.retrieveCart);
 router.post("/", ensureLoggedIn, cartsCtrl.addToCart);
+router.delete("/:userId/:bookId", ensureLoggedIn, cartsCtrl.deleteCartItem);
 
 module.exports = router;

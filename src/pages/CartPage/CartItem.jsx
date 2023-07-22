@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom";
 import sendRequest from "../../utilities/send-request";
+import { useAtomValue, useSetAtom } from "jotai";
+import { cartAtom } from "./cartContext";
 
-export default function CartItem({ book, user }) {
+export default function CartItem({ book, userId }) {
+  const setCartItems = useSetAtom(cartAtom);
+  const cartItems = useAtomValue(cartAtom);
+
   async function removeFromCart() {
-    if (user === null || user === undefined) {
+    if (userId === null || userId === undefined) {
       return;
     }
 
     try {
-      await sendRequest(`/api/carts/${user}/${book.id}`, "DELETE");
+      await sendRequest(`/api/carts/${userId}/${book.id}`, "DELETE");
+      setCartItems(cartItems.filter((cartItem) => cartItem.id !== book.id));
     } catch {
       console.log("Failed to delete book from cart.");
     }
@@ -25,8 +31,8 @@ export default function CartItem({ book, user }) {
           alt=""
         />
       </td>
-      <td className="uk-table-link">
-        <Link to={`/books/${book.id}`} className="uk-link-reset">
+      <td className="uk-text-truncate">
+        <Link to={`/books/${book.id}`} className="uk-button-link">
           {book.title}
         </Link>
       </td>
@@ -34,7 +40,7 @@ export default function CartItem({ book, user }) {
       <td className="uk-text-nowrap">${book.price}</td>
       <td>
         <button
-          className="uk-button uk-button-default"
+          className="uk-button uk-button-danger uk-button-small uk-text-center"
           type="button"
           onClick={removeFromCart}
         >

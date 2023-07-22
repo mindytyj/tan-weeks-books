@@ -6,6 +6,7 @@ import { cartAtom } from "./cartContext";
 export default function CartItem({ book, userId }) {
   const setCartItems = useSetAtom(cartAtom);
   const cartItems = useAtomValue(cartAtom);
+  const totalPrice = book.qty * book.price;
 
   async function removeFromCart() {
     if (userId === null || userId === undefined) {
@@ -38,6 +39,7 @@ export default function CartItem({ book, userId }) {
       </td>
       <td className="uk-text-nowrap">{book.qty}</td>
       <td className="uk-text-nowrap">${book.price}</td>
+      <td className="uk-text-nowrap">${totalPrice}</td>
       <td>
         <button
           className="uk-button uk-button-danger uk-button-small uk-text-center"

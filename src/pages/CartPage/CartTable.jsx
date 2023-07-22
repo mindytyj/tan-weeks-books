@@ -13,6 +13,7 @@ export default function CartTable({ user }) {
           <th className="uk-table-expand">Title</th>
           <th className="uk-table-small">Quantity</th>
           <th className="uk-width-small">Price</th>
+          <th className="uk-width-small">Total</th>
           <th className="uk-width-small">Remove</th>
         </tr>
       </thead>

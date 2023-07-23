@@ -6,5 +6,6 @@ const { pool } = require("../../config/database");
 
 router.get("/:userId", ensureLoggedIn, wishlistsCtrl.retrieveWishlist);
 router.post("/", ensureLoggedIn, wishlistsCtrl.addToWishlist);
+router.delete("/:userId/:bookId", wishlistsCtrl.deleteWishlistItem);
 
 module.exports = router;

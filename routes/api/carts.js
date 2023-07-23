@@ -4,9 +4,9 @@ const cartsCtrl = require("../../controllers/api/carts");
 const ensureLoggedIn = require("../../config/ensureLoggedIn");
 const { pool } = require("../../config/database");
 
-router.get("/:userId", ensureLoggedIn, cartsCtrl.retrieveCart);
+router.get("/:userId", cartsCtrl.retrieveCart);
 router.post("/", ensureLoggedIn, cartsCtrl.addToCart);
 router.delete("/:userId/:bookId", ensureLoggedIn, cartsCtrl.deleteCartItem);
-router.get("/totalQty/:userId", cartsCtrl.retrieveCartQty);
+router.put("/:userId/:bookId", cartsCtrl.updateCartQty);
 
 module.exports = router;

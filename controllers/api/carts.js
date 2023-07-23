@@ -48,14 +48,15 @@ async function deleteCartItem(req, res) {
   }
 }
 
-async function retrieveCartQty(req, res) {
+async function updateCartQty(req, res) {
   const userId = req.params.userId;
+  const bookId = req.params.bookId;
 
   try {
-    const cartQty = await pool.query(
-      `SELECT SUM(qty) FROM carts WHERE user_id = ${userId}`
+    await pool.query(
+      `UPDATE carts SET qty = ${req.body.qty} WHERE user_id = ${userId} and book_id = ${bookId}`
     );
-    res.status(200).json(cartQty.rows[0].sum);
+    res.status(200).json("Successfully updated quantity.");
   } catch (error) {
     res.status(400).json(error.message);
   }
@@ -65,5 +66,5 @@ module.exports = {
   retrieveCart,
   addToCart,
   deleteCartItem,
-  retrieveCartQty,
+  updateCartQty,
 };

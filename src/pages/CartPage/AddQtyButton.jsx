@@ -1,4 +1,3 @@
-import { useState } from "react";
 import sendRequest from "../../utilities/send-request";
 import { useAtomValue } from "jotai";
 import { userAtom } from "../../utilities/userContext";

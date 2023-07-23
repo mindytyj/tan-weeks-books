@@ -1,25 +1,29 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import RemoveFromCartButton from "./RemoveFromCartButton";
+import AddQtyButton from "./AddQtyButton";
+import MinusQtyButton from "./MinusQtyButton";
 import sendRequest from "../../utilities/send-request";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue } from "jotai";
+import { userAtom } from "../../utilities/userContext";
 import { cartAtom } from "./cartContext";
 
-export default function CartItem({ book, userId }) {
-  const setCartItems = useSetAtom(cartAtom);
+export default function CartItem({ book }) {
+  const user = useAtomValue(userAtom);
   const cartItems = useAtomValue(cartAtom);
-  const totalPrice = book.qty * book.price;
+  const [totalQty, setTotalQty] = useState(book.qty);
+  const totalPrice = totalQty * book.price;
 
-  async function removeFromCart() {
-    if (userId === null || userId === undefined) {
-      return;
+  useEffect(() => {
+    async function getBookQty() {
+      const bookQty = await sendRequest(
+        `/api/carts/${user.id}/${book.id}`,
+        "GET"
+      );
+      setTotalQty(bookQty.qty);
     }
-
-    try {
-      await sendRequest(`/api/carts/${userId}/${book.id}`, "DELETE");
-      setCartItems(cartItems.filter((cartItem) => cartItem.id !== book.id));
-    } catch {
-      console.log("Failed to delete book from cart.");
-    }
-  }
+    getBookQty();
+  }, [cartItems]);
 
   return (
     <tr>
@@ -37,17 +41,23 @@ export default function CartItem({ book, userId }) {
           {book.title}
         </Link>
       </td>
-      <td className="uk-text-nowrap">{book.qty}</td>
+      <td className="uk-text-nowrap">
+        <AddQtyButton
+          bookId={book.id}
+          totalQty={totalQty}
+          setTotalQty={setTotalQty}
+        />
+        {totalQty}
+        <MinusQtyButton
+          bookId={book.id}
+          totalQty={totalQty}
+          setTotalQty={setTotalQty}
+        />
+      </td>
       <td className="uk-text-nowrap">${book.price}</td>
       <td className="uk-text-nowrap">${totalPrice}</td>
       <td>
-        <button
-          className="uk-button uk-button-danger uk-button-small uk-text-center"
-          type="button"
-          onClick={removeFromCart}
-        >
-          X
-        </button>
+        <RemoveFromCartButton book={book} />
       </td>
     </tr>
   );

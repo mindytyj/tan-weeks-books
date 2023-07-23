@@ -62,9 +62,24 @@ async function updateCartQty(req, res) {
   }
 }
 
+async function getBookQty(req, res) {
+  const userId = req.params.userId;
+  const bookId = req.params.bookId;
+
+  try {
+    const bookQty = await pool.query(
+      `SELECT qty FROM carts WHERE user_id = ${userId} AND book_id = ${bookId}`
+    );
+    res.status(200).json(bookQty.rows[0]);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+}
+
 module.exports = {
   retrieveCart,
   addToCart,
   deleteCartItem,
   updateCartQty,
+  getBookQty,
 };

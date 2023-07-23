@@ -1,20 +1,40 @@
 import { useState } from "react";
+import sendRequest from "../../utilities/send-request";
+import { useAtomValue } from "jotai";
+import { userAtom } from "../../utilities/userContext";
 
-export default function QtyCounter({ bookQty }) {
-  const [totalQty, setTotalQty] = useState(bookQty);
+export default function QtyCounter({ book }) {
+  const [totalQty, setTotalQty] = useState(book.qty);
+  const user = useAtomValue(userAtom);
 
-  function addQty() {
+  async function addQty() {
     if (totalQty === 10) {
       return;
     }
-    setTotalQty(totalQty + 1);
+
+    try {
+      await sendRequest(`/api/carts/${user.id}/${book.id}`, "PUT", {
+        qty: parseInt(totalQty) + 1,
+      });
+      setTotalQty(totalQty + 1);
+    } catch {
+      console.log("Failed to add.");
+    }
   }
 
-  function minusQty() {
+  async function minusQty() {
     if (totalQty === 1) {
       return;
     }
-    setTotalQty(totalQty - 1);
+
+    try {
+      await sendRequest(`/api/carts/${user.id}/${book.id}`, "PUT", {
+        qty: parseInt(totalQty) - 1,
+      });
+      setTotalQty(totalQty - 1);
+    } catch {
+      console.log("Failed to minus.");
+    }
   }
 
   return (

@@ -1,9 +1,11 @@
 const { pool } = require("../../config/database");
 
 async function retrieveWishlist(req, res) {
+  const userId = req.params.userId;
+
   try {
     const wishlist = await pool.query(
-      `SELECT * FROM wishlists INNER JOIN books ON books.id = wishlists.book_id INNER JOIN users WHERE users.id = wishlists.user_id`
+      `SELECT books.id, books.title, books.image_url FROM wishlists JOIN books ON books.id = wishlists.book_id WHERE wishlists.user_id = ${userId}`
     );
     res.status(200).json(wishlist.rows);
   } catch (error) {
@@ -33,7 +35,22 @@ async function addToWishlist(req, res) {
   }
 }
 
+async function deleteWishlistItem(req, res) {
+  const userId = req.params.userId;
+  const bookId = req.params.bookId;
+
+  try {
+    await pool.query(
+      `DELETE FROM wishlists WHERE wishlists.user_id = ${userId} AND wishlists.book_id = ${bookId}`
+    );
+    res.status(200).json("Book has been successfully deleted from wishlist.");
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+}
+
 module.exports = {
   retrieveWishlist,
   addToWishlist,
+  deleteWishlistItem,
 };

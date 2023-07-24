@@ -10,7 +10,7 @@ export default function SideNavBar() {
       <ul className="uk-nav uk-nav-default">
         <li className="uk-nav-header">My Account</li>
         <li>
-          <Link to={`/account/${user.id}/settings`}>Account Settings</Link>
+          <Link to={`/account/${user.id}/settings`}>Settings</Link>
         </li>
         <li>
           <a href="#">Address</a>

@@ -3,12 +3,13 @@ import SideNavBar from "../../components/SideNavBar/SideNavBar";
 export default function OrderHistoryPage() {
   return (
     <div className="uk-container uk-padding">
-      <h1 className="uk-text-center">My Order History</h1>
       <div data-uk-grid>
-        <div className="uk-width-1-3@s">
+        <div className="uk-width-1-4@s">
           <SideNavBar />
         </div>
-        <div className="uk-width-1-2@s"></div>
+        <div className="uk-card uk-card-default uk-card-body uk-width-3-4@s">
+          <h1 className="uk-text-center">My Order History</h1>
+        </div>
       </div>
     </div>
   );

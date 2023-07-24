@@ -12,6 +12,34 @@ export async function login(credentials) {
   return getUser();
 }
 
+export async function updateFirstName(userId, firstName) {
+  const token = await usersAPI.updateFirstName(userId, firstName);
+  localStorage.removeItem("token");
+  localStorage.setItem("token", token);
+  return getUser();
+}
+
+export async function updateLastName(userId, lastName) {
+  const token = await usersAPI.updateLastName(userId, lastName);
+  localStorage.removeItem("token");
+  localStorage.setItem("token", token);
+  return getUser();
+}
+
+export async function updateEmail(userId, email) {
+  const token = await usersAPI.updateEmail(userId, email);
+  localStorage.removeItem("token");
+  localStorage.setItem("token", token);
+  return getUser();
+}
+
+export async function updatePassword(userId, password) {
+  const token = await usersAPI.updatePassword(userId, password);
+  localStorage.removeItem("token");
+  localStorage.setItem("token", token);
+  return getUser();
+}
+
 export function logOut() {
   localStorage.removeItem("token");
 }

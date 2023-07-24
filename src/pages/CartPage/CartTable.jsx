@@ -5,7 +5,7 @@ import { cartAtom } from "./cartContext";
 export default function CartTable({ user }) {
   const cartItems = useAtomValue(cartAtom);
 
-  return (
+  return cartItems.length > 0 ? (
     <table className="uk-table uk-table-justify">
       <thead>
         <tr>
@@ -23,5 +23,7 @@ export default function CartTable({ user }) {
         })}
       </tbody>
     </table>
+  ) : (
+    <h3 className="uk-text-center">Cart is Empty.</h3>
   );
 }

@@ -23,13 +23,13 @@ export default function WishlistTable() {
     getWishlist();
   }, []);
 
-  return wishlist ? (
+  return wishlist.length > 0 ? (
     <table className="uk-table uk-table-justify">
       <thead>
         <tr>
           <th className="uk-table-shrink"></th>
           <th className="uk-table-expand">Title</th>
-          <th className="uk-width-expand">Remove</th>
+          <th className="uk-table-expand">Remove</th>
         </tr>
       </thead>
       <tbody>
@@ -45,6 +45,6 @@ export default function WishlistTable() {
       </tbody>
     </table>
   ) : (
-    <h2>No Wishlist Items.</h2>
+    <h3 className="uk-text-center">No Wishlist Items.</h3>
   );
 }

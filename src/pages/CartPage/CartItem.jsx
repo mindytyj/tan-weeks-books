@@ -55,7 +55,7 @@ export default function CartItem({ book }) {
         />
       </td>
       <td className="uk-text-nowrap">${book.price}</td>
-      <td className="uk-text-nowrap">${totalPrice}</td>
+      <td className="uk-text-nowrap">${Number(totalPrice).toFixed(2)}</td>
       <td>
         <RemoveFromCartButton book={book} />
       </td>

@@ -20,11 +20,13 @@ import GenresPage from "../GenresPage/GenresPage";
 import OrderConfirmationPage from "../OrderConfirmationPage/OrderConfirmationPage";
 import BookReviewPage from "../BookReviewPage/BookReviewPage";
 import { adminAtom } from "../../utilities/adminContext";
+import AddBooksPage from "../AddBooksPage/AddBooksPage";
+import EditBookPage from "../EditBookPage/EditBookPage";
 
 export default function App() {
   const setIsAdmin = useSetAtom(adminAtom);
   const user = useAtomValue(userAtom);
-  user.email === process.env.EMAIL ? setIsAdmin(true) : setIsAdmin(false);
+  user.email === REACT_APP_EMAIL ? setIsAdmin(true) : setIsAdmin(false);
 
   return (
     <main className="App">
@@ -40,6 +42,8 @@ export default function App() {
           path="/cart/:userId/order-confirmation"
           element={<OrderConfirmationPage />}
         />
+        <Route path="/books/add" element={<AddBooksPage />} />
+        <Route path="/books/:id/edit" element={<EditBookPage />} />
       </Routes>
       {user ? (
         <Routes>

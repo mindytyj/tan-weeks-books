@@ -27,9 +27,13 @@ export default function Reviews() {
     <div className="uk-section uk-section-muted uk-preserve-color">
       <div className="uk-container uk-margin-left uk-margin-right">
         <h2 className="uk-text-center">Customer Reviews</h2>
-        {reviews.map((review) => {
-          return <ReviewCard review={review} key={review.id} />;
-        })}
+        {reviews.length > 0 ? (
+          reviews.map((review) => {
+            return <ReviewCard review={review} key={review.id} />;
+          })
+        ) : (
+          <h3 className="uk-text-center">No Reviews Yet.</h3>
+        )}
       </div>
     </div>
   );

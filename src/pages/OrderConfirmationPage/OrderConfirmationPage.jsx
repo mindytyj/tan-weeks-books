@@ -7,7 +7,7 @@ export default function OrderConfirmationPage() {
   const { userId } = useParams();
   const navigate = useNavigate();
 
-  if (!user || user.id !== userId) {
+  if (!user || user.id !== parseInt(userId)) {
     navigate("/");
   }
 

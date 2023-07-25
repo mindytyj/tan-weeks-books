@@ -1,7 +1,18 @@
+import { useAtomValue } from "jotai";
 import SideNavBar from "../../components/SideNavBar/SideNavBar";
 import AccountTable from "./AccountTable";
+import { userAtom } from "../../utilities/userContext";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function AccountPage() {
+  const user = useAtomValue(userAtom);
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  if (!user || user.id !== parseInt(id)) {
+    navigate("/");
+  }
+
   return (
     <div className="uk-container uk-padding">
       <div data-uk-grid>

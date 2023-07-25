@@ -5,10 +5,16 @@ import { userAtom } from "../../utilities/userContext";
 import CheckOut from "./CheckOut";
 import CartTable from "./CartTable";
 import { cartAtom } from "./cartContext";
+import { useNavigate } from "react-router-dom";
 
 export default function CartPage() {
   const setCartItems = useSetAtom(cartAtom);
   const user = useAtomValue(userAtom);
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate("/login");
+  }
 
   useEffect(() => {
     async function getAllCartItems() {

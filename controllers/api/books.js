@@ -85,6 +85,30 @@ async function deleteBook(req, res) {
   }
 }
 
+async function editBook(req, res) {
+  const bookId = req.params.bookId;
+  const book = req.body.formData;
+
+  try {
+    await pool.query(
+      "UPDATE books SET title = ($1), description = ($2), pages = ($3), isbn = ($4), price = ($5), qty = ($6), image_url = ($7) WHERE books.id = ($8)",
+      [
+        book.title,
+        book.description,
+        book.pages,
+        book.isbn,
+        book.price,
+        book.qty,
+        book.image_url,
+        bookId,
+      ]
+    );
+    res.status(200).json("Successfully updated book details.");
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+}
+
 module.exports = {
   getAllBooks,
   getGenreBooks,
@@ -92,4 +116,5 @@ module.exports = {
   addReview,
   getReviews,
   deleteBook,
+  editBook,
 };

@@ -43,13 +43,13 @@ export default function CartItem({ book }) {
       </td>
       <td className="uk-text-nowrap">
         <AddQtyButton
-          bookId={book.id}
+          book={book}
           totalQty={totalQty}
           setTotalQty={setTotalQty}
         />
         {totalQty}
         <MinusQtyButton
-          bookId={book.id}
+          book={book}
           totalQty={totalQty}
           setTotalQty={setTotalQty}
         />

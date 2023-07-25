@@ -4,12 +4,14 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { userAtom } from "../../utilities/userContext";
 import CheckOut from "./CheckOut";
 import CartTable from "./CartTable";
-import { cartAtom } from "./cartContext";
+import { cartAtom, cartTotalAtom } from "./cartContext";
 import { useNavigate } from "react-router-dom";
 
 export default function CartPage() {
   const setCartItems = useSetAtom(cartAtom);
   const user = useAtomValue(userAtom);
+  const setCartTotal = useSetAtom(cartTotalAtom);
+  const cartTotal = useAtomValue(cartTotalAtom);
   const navigate = useNavigate();
 
   if (!user) {
@@ -20,13 +22,20 @@ export default function CartPage() {
     async function getAllCartItems() {
       try {
         const allCartItems = await sendRequest(`/api/carts/${user.id}`, "GET");
+
+        let cart = 0;
+        allCartItems.rows.map(
+          (cartItem) => (cart += parseFloat(cartItem.price * cartItem.qty))
+        );
+
         setCartItems(allCartItems.rows);
+        setCartTotal(cart);
       } catch {
         console.error("Failed to retrieve cart items.");
       }
     }
     getAllCartItems();
-  }, []);
+  }, [cartTotal]);
 
   return (
     <div className="uk-container uk-padding">

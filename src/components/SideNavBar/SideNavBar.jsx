@@ -13,9 +13,6 @@ export default function SideNavBar() {
           <Link to={`/account/${user.id}/settings`}>Settings</Link>
         </li>
         <li>
-          <a href="#">Address</a>
-        </li>
-        <li>
           <Link to={`/account/${user.id}/wishlist`}>Wishlist</Link>
         </li>
         <li>

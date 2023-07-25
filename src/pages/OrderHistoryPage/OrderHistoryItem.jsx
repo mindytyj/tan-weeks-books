@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+import ReviewButton from "./ReviewButton";
 
-export default function OrderHistoryItem({ order }) {
+export default function OrderHistoryItem({ book }) {
   return (
     <tr>
       <td>
@@ -13,12 +14,15 @@ export default function OrderHistoryItem({ order }) {
         />
       </td>
       <td className="uk-text-truncate">
-        <Link to={`/books/${order.id}`} className="uk-button-link">
-          {order.title}
+        <Link to={`/books/${book.id}`} className="uk-button-link">
+          {book.title}
         </Link>
       </td>
-      <td className="uk-text-nowrap">{order.qty}</td>
-      <td className="uk-text-nowrap">{order.total}</td>
+      <td className="uk-text-nowrap">{book.qty}</td>
+      <td className="uk-text-nowrap">{book.total}</td>
+      <td>
+        <ReviewButton bookId={book.id} />
+      </td>
     </tr>
   );
 }

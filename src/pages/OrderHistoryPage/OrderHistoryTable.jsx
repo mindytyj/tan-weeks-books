@@ -32,12 +32,13 @@ export default function OrderHistoryTable() {
           <th className="uk-table-shrink"></th>
           <th className="uk-table-expand">Title</th>
           <th className="uk-table-small">Qty</th>
-          <th className="uk-table-expand">Total</th>
+          <th className="uk-table-small">Total</th>
+          <th className="uk-table-small"></th>
         </tr>
       </thead>
       <tbody>
-        {orderHistory.map((order) => {
-          return <OrderHistoryItem order={order} />;
+        {orderHistory.map((book) => {
+          return <OrderHistoryItem book={book} />;
         })}
       </tbody>
     </table>

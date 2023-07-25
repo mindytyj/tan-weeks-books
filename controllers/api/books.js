@@ -35,8 +35,25 @@ async function getBookDetails(req, res) {
   }
 }
 
+async function addReview(req, res) {
+  const bookId = req.params.bookId;
+  const userId = req.params.userId;
+  const data = req.body.formData;
+
+  try {
+    await pool.query(
+      "INSERT INTO reviews (review, recommendation, user_id, book_id) VALUES ($1, $2, $3, $4)",
+      [data.review, data.recommendation, userId, bookId]
+    );
+    res.status(200).json("Successfully added book review.");
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+}
+
 module.exports = {
   getAllBooks,
   getGenreBooks,
   getBookDetails,
+  addReview,
 };

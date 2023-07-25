@@ -14,7 +14,7 @@ export default function CartTable({ user }) {
           <th className="uk-table-small">Quantity</th>
           <th className="uk-table-small">Price</th>
           <th className="uk-table-small">Total</th>
-          <th className="uk-table-small">Remove</th>
+          <th className="uk-table-small"></th>
         </tr>
       </thead>
       <tbody>

@@ -29,7 +29,7 @@ export default function WishlistTable() {
         <tr>
           <th className="uk-table-shrink"></th>
           <th className="uk-table-expand">Title</th>
-          <th className="uk-table-expand">Remove</th>
+          <th className="uk-table-small"></th>
         </tr>
       </thead>
       <tbody>

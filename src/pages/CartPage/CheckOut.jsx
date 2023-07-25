@@ -1,13 +1,14 @@
 import { useState } from "react";
 import sendRequest from "../../utilities/send-request";
 import { useAtomValue } from "jotai";
-import { cartAtom } from "./cartContext";
+import { cartAtom, cartTotalAtom } from "./cartContext";
 import { userAtom } from "../../utilities/userContext";
 import { useNavigate } from "react-router-dom";
 
 export default function CheckOut() {
   const [error, setError] = useState("");
   const cartItems = useAtomValue(cartAtom);
+  const cartTotal = useAtomValue(cartTotalAtom);
   const user = useAtomValue(userAtom);
   const navigate = useNavigate();
 
@@ -28,7 +29,9 @@ export default function CheckOut() {
   return (
     <div className="uk-width-1-2 uk-align-center">
       <div className="uk-card uk-card-default uk-card-body">
-        <h3 className="uk-text-center">Total $</h3>
+        <h3 className="uk-text-center">
+          Total ${Number(cartTotal).toFixed(2)}
+        </h3>
         <button
           className="uk-button uk-button-primary uk-align-center"
           onClick={handleCheckOut}

@@ -19,7 +19,7 @@ export default function CartTable({ user }) {
       </thead>
       <tbody>
         {cartItems.map((book) => {
-          return <CartItem book={book} userId={user.id} />;
+          return <CartItem book={book} userId={user.id} key={book.id} />;
         })}
       </tbody>
     </table>

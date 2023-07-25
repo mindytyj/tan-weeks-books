@@ -3,9 +3,15 @@ import WishlistButton from "./WishlistButton";
 import { bookAtom } from "./bookContext";
 import AddToCartButton from "../../components/AddToCartButton/AddToCartButton";
 import StockLabel from "../../components/StockLabel/StockLabel";
+import { adminAtom } from "../../utilities/adminContext";
+import { userAtom } from "../../utilities/userContext";
+import DeleteBookButton from "./DeleteBookButton";
+import EditBookButton from "../EditBookPage/EditBookButton";
 
 export default function MainBookDetails() {
   const book = useAtomValue(bookAtom);
+  const user = useAtomValue(userAtom);
+  const isAdmin = useAtomValue(adminAtom);
 
   return (
     <div className="uk-section uk-section-default uk-preserve-color">
@@ -25,8 +31,17 @@ export default function MainBookDetails() {
                 by {book.first_name} {book.last_name}
               </p>
               <p>${book.price}</p>
-              <AddToCartButton book={book} />
-              <WishlistButton />
+              {user && isAdmin ? (
+                <>
+                  <EditBookButton book={book} />
+                  <DeleteBookButton book={book} />
+                </>
+              ) : (
+                <>
+                  <AddToCartButton book={book} />
+                  <WishlistButton />
+                </>
+              )}
               <p>
                 <StockLabel book={book} />
               </p>

@@ -51,9 +51,25 @@ async function addReview(req, res) {
   }
 }
 
+async function getReviews(req, res) {
+  const bookId = req.params.bookId;
+
+  try {
+    const reviews = await pool.query(
+      "SELECT reviews.id, review, recommendation, first_name, last_name FROM reviews JOIN users ON users.id = reviews.user_id WHERE book_id = $1",
+      [bookId]
+    );
+    if (!reviews) throw new Error("There are no reviews available.");
+    res.status(200).json(reviews.rows);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+}
+
 module.exports = {
   getAllBooks,
   getGenreBooks,
   getBookDetails,
   addReview,
+  getReviews,
 };

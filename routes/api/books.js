@@ -7,5 +7,6 @@ router.get("/", booksCtrl.getAllBooks);
 router.get("/genres/:genreId", booksCtrl.getGenreBooks);
 router.get("/:bookId", booksCtrl.getBookDetails);
 router.post("/:bookId/reviews/:userId", booksCtrl.addReview);
+router.get("/:bookId/reviews", booksCtrl.getReviews);
 
 module.exports = router;

@@ -28,9 +28,9 @@ export default function CheckOut() {
   return (
     <div className="uk-width-1-2 uk-align-center">
       <div className="uk-card uk-card-default uk-card-body">
-        <h3>Total $</h3>
+        <h3 className="uk-text-center">Total $</h3>
         <button
-          className="uk-button uk-button-secondary uk-align-center"
+          className="uk-button uk-button-primary uk-align-center"
           onClick={handleCheckOut}
         >
           Check Out

@@ -1,7 +1,7 @@
 export default function Promotions() {
   return (
     <div className="uk-container uk-align-center">
-      <div className="uk-h3">Fade</div>
+      <div className="uk-h3 uk-text-center">T-WB Promotions</div>
 
       <div
         className="uk-position-relative uk-visible-toggle uk-light"

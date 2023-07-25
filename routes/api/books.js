@@ -8,5 +8,6 @@ router.get("/genres/:genreId", booksCtrl.getGenreBooks);
 router.get("/:bookId", booksCtrl.getBookDetails);
 router.post("/:bookId/reviews/:userId", booksCtrl.addReview);
 router.get("/:bookId/reviews", booksCtrl.getReviews);
+router.delete("/:bookId", booksCtrl.deleteBook);
 
 module.exports = router;

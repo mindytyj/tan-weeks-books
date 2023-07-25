@@ -66,10 +66,30 @@ async function getReviews(req, res) {
   }
 }
 
+async function deleteBook(req, res) {
+  const bookId = req.params.bookId;
+
+  try {
+    await pool.query(
+      "DELETE from order_details WHERE order_details.book_id = ($1)",
+      [bookId]
+    );
+    await pool.query("DELETE FROM carts WHERE carts.book_id = ($1)", [bookId]);
+    await pool.query("DELETE FROM reviews WHERE reviews.book_id = ($1)", [
+      bookId,
+    ]);
+    await pool.query("DELETE FROM books WHERE books.id = ($1)", [bookId]);
+    res.status(200).json("Book has been successfully deleted.");
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+}
+
 module.exports = {
   getAllBooks,
   getGenreBooks,
   getBookDetails,
   addReview,
   getReviews,
+  deleteBook,
 };

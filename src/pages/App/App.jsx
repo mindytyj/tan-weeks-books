@@ -26,7 +26,9 @@ import EditBookPage from "../EditBookPage/EditBookPage";
 export default function App() {
   const setIsAdmin = useSetAtom(adminAtom);
   const user = useAtomValue(userAtom);
-  user.email === REACT_APP_EMAIL ? setIsAdmin(true) : setIsAdmin(false);
+  user?.email === process.env.REACT_APP_EMAIL
+    ? setIsAdmin(true)
+    : setIsAdmin(false);
 
   return (
     <main className="App">

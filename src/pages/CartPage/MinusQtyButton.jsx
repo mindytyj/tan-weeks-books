@@ -1,9 +1,12 @@
 import sendRequest from "../../utilities/send-request";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { userAtom } from "../../utilities/userContext";
+import { cartTotalAtom } from "./cartContext";
 
-export default function MinusQtyButton({ bookId, totalQty, setTotalQty }) {
+export default function MinusQtyButton({ book, totalQty, setTotalQty }) {
   const user = useAtomValue(userAtom);
+  const setCartTotal = useSetAtom(cartTotalAtom);
+  let cartTotal = useAtomValue(cartTotalAtom);
 
   async function minusQty() {
     if (totalQty === 1) {
@@ -11,12 +14,14 @@ export default function MinusQtyButton({ bookId, totalQty, setTotalQty }) {
     }
 
     try {
-      await sendRequest(`/api/carts/${user.id}/${bookId}`, "PUT", {
+      await sendRequest(`/api/carts/${user.id}/${book.id}`, "PUT", {
         qty: parseInt(totalQty) - 1,
       });
       setTotalQty(totalQty - 1);
-    } catch {
-      console.log("Failed to minus.");
+      setCartTotal((cartTotal -= parseFloat(book.price)));
+    } catch (error) {
+      console.error(error.message);
+      console.log("Failed to reduce quantity.");
     }
   }
 

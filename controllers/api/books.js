@@ -109,6 +109,35 @@ async function editBook(req, res) {
   }
 }
 
+async function addBook(req, res) {
+  const book = req.body.formData;
+  console.log(book);
+
+  try {
+    await pool.query(
+      "INSERT INTO books (title, genre_id, description, language_id, pages, isbn, publication_date, publisher_id, author_id, price, qty, image_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)",
+      [
+        book.title,
+        book.genreId,
+        book.description,
+        book.languageId,
+        book.pages,
+        book.isbn,
+        book.publicationDate,
+        book.publisherId,
+        book.authorId,
+        book.price,
+        book.qty,
+        book.imageUrl,
+      ]
+    );
+    res.status(200).json("Successfully added book.");
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error.message);
+  }
+}
+
 module.exports = {
   getAllBooks,
   getGenreBooks,
@@ -117,4 +146,5 @@ module.exports = {
   getReviews,
   deleteBook,
   editBook,
+  addBook,
 };

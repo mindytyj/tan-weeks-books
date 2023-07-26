@@ -47,6 +47,7 @@ export default function WishlistTable() {
               book={book}
               setWishlist={setWishlist}
               wishlist={wishlist}
+              key={book.id}
             />
           );
         })}

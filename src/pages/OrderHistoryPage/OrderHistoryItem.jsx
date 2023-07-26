@@ -19,7 +19,7 @@ export default function OrderHistoryItem({ book }) {
         </Link>
       </td>
       <td className="uk-text-nowrap">{book.qty}</td>
-      <td className="uk-text-nowrap">{book.total}</td>
+      <td className="uk-text-nowrap">${Number(book.total).toFixed(2)}</td>
       <td>
         <ReviewButton bookId={book.id} />
       </td>

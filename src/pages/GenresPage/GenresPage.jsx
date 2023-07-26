@@ -22,8 +22,6 @@ export default function GenresPage() {
     getGenreBooks();
   }, [genreId]);
 
-  console.log(books);
-
   return books.length > 0 ? (
     <div className="uk-container uk-padding">
       <div className="uk-section uk-section- uk-preserve-color">

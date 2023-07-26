@@ -8,7 +8,7 @@ export default function EditBookButton({ book }) {
   }
 
   return (
-    <button className="uk-button uk-button-primary" onClick={editBook}>
+    <button className="uk-button uk-button-secondary" onClick={editBook}>
       Edit
     </button>
   );

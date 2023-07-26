@@ -2,7 +2,9 @@ const { pool } = require("../../config/database");
 
 async function getAllBooks(req, res) {
   try {
-    const books = await pool.query("SELECT id, title, price, qty FROM books");
+    const books = await pool.query(
+      "SELECT id, title, price, qty, image_url FROM books"
+    );
     if (!books) throw new Error("There are no books available.");
     res.status(200).json(books);
   } catch {
@@ -14,7 +16,7 @@ async function getGenreBooks(req, res) {
   const genreId = req.params.genreId;
   try {
     const genreBooks = await pool.query(
-      `SELECT books.id, title, price, qty, genre_name FROM books JOIN genres ON genres.id = books.genre_id WHERE books.genre_id = ${genreId}`
+      `SELECT books.id, title, price, qty, image_url, genre_name FROM books JOIN genres ON genres.id = books.genre_id WHERE books.genre_id = ${genreId}`
     );
     if (!genreBooks) throw new Error("There are no books in this genre.");
     res.status(200).json(genreBooks);

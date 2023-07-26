@@ -21,8 +21,12 @@ export default function MainBookDetails() {
           data-uk-grid
         >
           <div className="uk-card-media-left uk-cover-container">
-            <img src="images/light.jpg" alt="" data-uk-cover />
-            <canvas width="600" height="400"></canvas>
+            <img
+              src={book.image_url}
+              alt={book.title}
+              width="200"
+              className="uk-align-center"
+            />
           </div>
           <div>
             <div className="uk-card-body">

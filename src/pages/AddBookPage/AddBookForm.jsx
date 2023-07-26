@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import GenreSelector from "./GenreSelector";
-import LanguageSelector from "./LanguageSelector";
-import PublisherSelector from "./PublisherSelector";
-import AuthorSelector from "./AuthorSelector";
+import GenreSelector from "../../components/FormSelectors.jsx/GenreSelector";
+import LanguageSelector from "../../components/FormSelectors.jsx/LanguageSelector";
+import PublisherSelector from "../../components/FormSelectors.jsx/PublisherSelector";
+import AuthorSelector from "../../components/FormSelectors.jsx/AuthorSelector";
 import sendRequest from "../../utilities/send-request";
 
 export default function AddBookForm() {

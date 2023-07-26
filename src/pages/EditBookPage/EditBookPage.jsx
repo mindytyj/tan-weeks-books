@@ -9,13 +9,13 @@ export default function EditBookPage() {
   const [book, setBook] = useState([]);
 
   useEffect(() => {
-    async function getBookDetails() {
+    async function getEditBookDetails() {
       setLoading(true);
-      const retrievedBook = await sendRequest(`/api/books/${id}`, "GET");
+      const retrievedBook = await sendRequest(`/api/books/edit/${id}`, "GET");
       setBook(retrievedBook);
       setLoading(false);
     }
-    getBookDetails();
+    getEditBookDetails();
   }, []);
 
   return (

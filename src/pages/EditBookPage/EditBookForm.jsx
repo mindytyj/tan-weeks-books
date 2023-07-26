@@ -1,6 +1,11 @@
 import { useState } from "react";
 import sendRequest from "../../utilities/send-request";
 import { useNavigate } from "react-router-dom";
+import GenreSelector from "../../components/FormSelectors.jsx/GenreSelector";
+import LanguageSelector from "../../components/FormSelectors.jsx/LanguageSelector";
+import PublisherSelector from "../../components/FormSelectors.jsx/PublisherSelector";
+import AuthorSelector from "../../components/FormSelectors.jsx/AuthorSelector";
+import dayjs from "dayjs";
 
 export default function EditBookForm({ book, setBook }) {
   const [error, setError] = useState("");
@@ -19,6 +24,10 @@ export default function EditBookForm({ book, setBook }) {
       console.error(error.message);
       setError("Failed to edit book.");
     }
+  }
+
+  function formatDate(date) {
+    return dayjs(date).format("YYYY-MM-DD");
   }
 
   function handleChange(event) {
@@ -47,6 +56,7 @@ export default function EditBookForm({ book, setBook }) {
           />
         </div>
       </div>
+      <GenreSelector handleChange={handleChange} genre={book.genre_id} />
       <div className="uk-margin">
         <label className="uk-form-label" htmlFor="description">
           Description
@@ -63,6 +73,10 @@ export default function EditBookForm({ book, setBook }) {
           />
         </div>
       </div>
+      <LanguageSelector
+        handleChange={handleChange}
+        language={book.language_id}
+      />
       <div className="uk-margin">
         <label className="uk-form-label" htmlFor="pages">
           Pages
@@ -95,6 +109,27 @@ export default function EditBookForm({ book, setBook }) {
           />
         </div>
       </div>
+      <div className="uk-margin">
+        <label className="uk-form-label" htmlFor="publication_date">
+          Publication Date
+        </label>
+        <div className="uk-form-controls">
+          <input
+            className="uk-input"
+            type="date"
+            id="publication_date"
+            name="publication_date"
+            value={formatDate(book?.publication_date) || ""}
+            onChange={handleChange}
+            required
+          />
+        </div>
+      </div>
+      <PublisherSelector
+        handleChange={handleChange}
+        publisher={book.publisher_id}
+      />
+      <AuthorSelector handleChange={handleChange} author={book.author_id} />
       <div className="uk-margin">
         <label className="uk-form-label" htmlFor="price">
           Price

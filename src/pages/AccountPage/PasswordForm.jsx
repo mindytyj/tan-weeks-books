@@ -20,6 +20,12 @@ export default function PasswordForm() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+
+    if (newPassword.password !== newPassword.confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
     try {
       const formData = { ...newPassword };
       delete formData.confirmPassword;
@@ -33,6 +39,9 @@ export default function PasswordForm() {
       setError("Failed to update password. Please try again.");
     }
   }
+
+  const disable =
+    newPassword.password === "" || newPassword.confirmPassword === "";
 
   return (
     <form autoComplete="off" onSubmit={handleSubmit}>
@@ -67,6 +76,7 @@ export default function PasswordForm() {
       <button
         className="uk-button uk-button-secondary uk-align-center"
         type="submit"
+        disabled={disable}
       >
         Confirm
       </button>

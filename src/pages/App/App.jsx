@@ -20,8 +20,9 @@ import GenresPage from "../GenresPage/GenresPage";
 import OrderConfirmationPage from "../OrderConfirmationPage/OrderConfirmationPage";
 import BookReviewPage from "../BookReviewPage/BookReviewPage";
 import { adminAtom } from "../../utilities/adminContext";
-import AddBooksPage from "../AddBooksPage/AddBooksPage";
 import EditBookPage from "../EditBookPage/EditBookPage";
+import AddBookPage from "../AddBookPage/AddBookPage";
+import AdminAuthPage from "../AdminAuthPage/AdminAuthPage";
 
 export default function App() {
   const setIsAdmin = useSetAtom(adminAtom);
@@ -35,20 +36,18 @@ export default function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route path="/books" element={<BooksPage />} />
         <Route path="/genres/:genreId" element={<GenresPage />} />
         <Route path="/books/:id" element={<BooksDetailPage />} />
-        <Route path="/books/:id/review" element={<BookReviewPage />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route
-          path="/cart/:userId/order-confirmation"
-          element={<OrderConfirmationPage />}
-        />
-        <Route path="/books/add" element={<AddBooksPage />} />
-        <Route path="/books/:id/edit" element={<EditBookPage />} />
-      </Routes>
-      {user ? (
-        <Routes>
+        <Route element={<AuthPage user={user} />}>
+          <Route path="/cart" element={<CartPage />} />
+          <Route
+            path="/cart/:userId/order-confirmation"
+            element={<OrderConfirmationPage />}
+          />
+          <Route path="/books/:id/review" element={<BookReviewPage />} />
           <Route path="/account/:id/settings" element={<AccountPage />} />
           <Route
             path="/account/:id/settings/edit/first-name"
@@ -71,15 +70,16 @@ export default function App() {
             path="/account/:id/order-history"
             element={<OrderHistoryPage />}
           />
-        </Routes>
-      ) : (
-        <AuthPage>
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-          </Routes>
-        </AuthPage>
-      )}
+        </Route>
+        <Route element={<AdminAuthPage user={user} />}>
+          <Route path="/books/add" element={<AddBookPage />} />
+          <Route path="/books/:id/edit" element={<EditBookPage />} />
+        </Route>
+        <Route
+          path="/*"
+          element={<h1 className="uk-text-center">Error 404: No Page Found</h1>}
+        />
+      </Routes>
     </main>
   );
 }

@@ -11,7 +11,6 @@ export default function WishlistButton() {
 
   async function addToWishlist() {
     if (user === null) {
-      setWishlistMsg("Join as a T-WB member to add to wishlist.");
       return;
     }
 
@@ -21,7 +20,8 @@ export default function WishlistButton() {
         userId: parseInt(user.id),
       });
       setWishlistMsg("Book has been successfully added to your wishlist!");
-    } catch {
+    } catch (error) {
+      console.error(error.message);
       setWishlistMsg("The book is already in your wishlist.");
     }
   }
@@ -41,7 +41,13 @@ export default function WishlistButton() {
             type="button"
             data-uk-close
           />
-          <p className="uk-text-center">{wishlistMsg}</p>
+          {user ? (
+            <p className="uk-text-center">{wishlistMsg}</p>
+          ) : (
+            <p className="uk-text-center">
+              Join as a T-WB member to add to wishlist.
+            </p>
+          )}
         </div>
       </div>
     </>

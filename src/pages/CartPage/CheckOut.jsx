@@ -26,6 +26,8 @@ export default function CheckOut() {
     }
   }
 
+  const disable = cartItems?.length === 0;
+
   return (
     <div className="uk-width-1-2 uk-align-center">
       <div className="uk-card uk-card-default uk-card-body">
@@ -35,6 +37,7 @@ export default function CheckOut() {
         <button
           className="uk-button uk-button-primary uk-align-center"
           onClick={handleCheckOut}
+          disabled={disable}
         >
           Check Out
         </button>

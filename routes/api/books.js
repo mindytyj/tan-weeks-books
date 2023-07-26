@@ -9,6 +9,7 @@ router.get("/:bookId", booksCtrl.getBookDetails);
 router.post("/:bookId/reviews/:userId", booksCtrl.addReview);
 router.get("/:bookId/reviews", booksCtrl.getReviews);
 router.delete("/:bookId", booksCtrl.deleteBook);
+router.get("/edit/:bookId", booksCtrl.getEditBookDetails);
 router.put("/:bookId", booksCtrl.editBook);
 router.post("/", booksCtrl.addBook);
 

@@ -85,18 +85,36 @@ async function deleteBook(req, res) {
   }
 }
 
+async function getEditBookDetails(req, res) {
+  const bookId = req.params.bookId;
+
+  try {
+    const book = await pool.query("SELECT * FROM books WHERE books.id = ($1)", [
+      bookId,
+    ]);
+    res.status(200).json(book.rows[0]);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+}
+
 async function editBook(req, res) {
   const bookId = req.params.bookId;
   const book = req.body.formData;
 
   try {
     await pool.query(
-      "UPDATE books SET title = ($1), description = ($2), pages = ($3), isbn = ($4), price = ($5), qty = ($6), image_url = ($7) WHERE books.id = ($8)",
+      "UPDATE books SET title = ($1), genre_id = ($2), description = ($3), language_id = ($4), pages = ($5), isbn = ($6), publication_date = ($7), publisher_id = ($8), author_id = ($9), price = ($10), qty = ($11), image_url = ($12) WHERE books.id = ($13)",
       [
         book.title,
+        book.genre_id,
         book.description,
+        book.language_id,
         book.pages,
         book.isbn,
+        book.publication_date,
+        book.publisher_id,
+        book.author_id,
         book.price,
         book.qty,
         book.image_url,
@@ -118,17 +136,17 @@ async function addBook(req, res) {
       "INSERT INTO books (title, genre_id, description, language_id, pages, isbn, publication_date, publisher_id, author_id, price, qty, image_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)",
       [
         book.title,
-        book.genreId,
+        book.genre_id,
         book.description,
-        book.languageId,
+        book.language_id,
         book.pages,
         book.isbn,
-        book.publicationDate,
-        book.publisherId,
-        book.authorId,
+        book.publication_date,
+        book.publisher_id,
+        book.author_id,
         book.price,
         book.qty,
-        book.imageUrl,
+        book.image_url,
       ]
     );
     res.status(200).json("Successfully added book.");
@@ -145,6 +163,7 @@ module.exports = {
   addReview,
   getReviews,
   deleteBook,
+  getEditBookDetails,
   editBook,
   addBook,
 };

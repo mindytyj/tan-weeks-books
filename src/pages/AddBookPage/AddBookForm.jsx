@@ -9,17 +9,17 @@ import sendRequest from "../../utilities/send-request";
 export default function AddBookForm() {
   const [book, setBook] = useState({
     title: "",
-    genreId: 1,
+    genre_id: 1,
     description: "",
-    languageId: 1,
+    language_id: 1,
     pages: "",
     isbn: "",
-    publicationDate: "",
-    publisherId: 1,
-    authorId: 1,
+    publication_date: "",
+    publisher_id: 1,
+    author_id: 1,
     price: "",
     qty: "",
-    imageUrl: "",
+    image_url: "",
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -114,15 +114,15 @@ export default function AddBookForm() {
         </div>
       </div>
       <div className="uk-margin">
-        <label className="uk-form-label" htmlFor="publicationDate">
+        <label className="uk-form-label" htmlFor="publication_date">
           Publication Date
         </label>
         <div className="uk-form-controls">
           <input
             className="uk-input"
             type="date"
-            id="publicationDate"
-            name="publicationDate"
+            id="publication_date"
+            name="publication_date"
             onChange={handleChange}
             required
           />
@@ -161,15 +161,15 @@ export default function AddBookForm() {
         </div>
       </div>
       <div className="uk-margin">
-        <label className="uk-form-label" htmlFor="imageUrl">
+        <label className="uk-form-label" htmlFor="image_url">
           Image Url
         </label>
         <div className="uk-form-controls">
           <input
             className="uk-input"
             type="text"
-            id="imageUrl"
-            name="imageUrl"
+            id="image_url"
+            name="image_url"
             onChange={handleChange}
             required
           />

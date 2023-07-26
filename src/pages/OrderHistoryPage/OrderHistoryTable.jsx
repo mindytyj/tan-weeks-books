@@ -3,19 +3,23 @@ import { userAtom } from "../../utilities/userContext";
 import sendRequest from "../../utilities/send-request";
 import OrderHistoryItem from "./OrderHistoryItem";
 import { useEffect, useState } from "react";
+import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 
 export default function OrderHistoryTable() {
+  const [loading, setLoading] = useState(true);
   const user = useAtomValue(userAtom);
   const [orderHistory, setOrderHistory] = useState([]);
 
   useEffect(() => {
     async function getOrderHistory() {
       try {
+        setLoading(true);
         const allOrderHistory = await sendRequest(
           `/api/orders/${user.id}`,
           "GET"
         );
         setOrderHistory(allOrderHistory);
+        setLoading(false);
       } catch {
         console.error("Unable to retrieve order history.");
       }
@@ -23,7 +27,9 @@ export default function OrderHistoryTable() {
     getOrderHistory();
   }, []);
 
-  console.log(orderHistory);
+  if (loading === true) {
+    return <LoadingScreen />;
+  }
 
   return orderHistory.length > 0 ? (
     <table className="uk-table uk-table-justify">

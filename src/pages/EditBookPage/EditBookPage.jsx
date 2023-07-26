@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import sendRequest from "../../utilities/send-request";
 import EditBookForm from "./EditBookForm";
+import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 
 export default function EditBookPage() {
-  const { id } = useParams();
   const [loading, setLoading] = useState(true);
+  const { id } = useParams();
   const [book, setBook] = useState([]);
 
   useEffect(() => {
@@ -17,6 +18,10 @@ export default function EditBookPage() {
     }
     getEditBookDetails();
   }, []);
+
+  if (loading === true) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="uk-container uk-padding">

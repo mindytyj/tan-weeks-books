@@ -5,23 +5,31 @@ import { useAtomValue } from "jotai";
 import { userAtom } from "../../utilities/userContext";
 import { adminAtom } from "../../utilities/adminContext";
 import AddBookButton from "../AddBookPage/AddBookButton";
+import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 
 export default function BooksPage() {
-  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
   const user = useAtomValue(userAtom);
   const isAdmin = useAtomValue(adminAtom);
+  const [books, setBooks] = useState([]);
 
   useEffect(() => {
     async function getAllBooks() {
       try {
+        setLoading(true);
         const allBooks = await sendRequest("/api/books", "GET");
         setBooks(allBooks.rows);
+        setLoading(false);
       } catch {
         console.error("Failed to retrieve books.");
       }
     }
     getAllBooks();
   }, []);
+
+  if (loading === true) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="uk-container uk-padding">

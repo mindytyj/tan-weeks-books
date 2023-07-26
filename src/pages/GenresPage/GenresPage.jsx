@@ -2,25 +2,33 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BookCard from "../BooksPage/BookCard";
 import sendRequest from "../../utilities/send-request";
+import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 
 export default function GenresPage() {
+  const [loading, setLoading] = useState(true);
   const { genreId } = useParams();
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
     async function getGenreBooks() {
       try {
+        setLoading(true);
         const genreBooks = await sendRequest(
           `/api/books/genres/${parseInt(genreId)}`,
           "GET"
         );
         setBooks(genreBooks.rows);
+        setLoading(false);
       } catch {
         console.error("Failed to retrieve books.");
       }
     }
     getGenreBooks();
   }, [genreId]);
+
+  if (loading === true) {
+    return <LoadingScreen />;
+  }
 
   return books.length > 0 ? (
     <div className="uk-container uk-padding">

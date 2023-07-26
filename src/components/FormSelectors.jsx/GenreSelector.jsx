@@ -1,14 +1,15 @@
-export default function GenreSelector({ handleChange }) {
+export default function GenreSelector({ handleChange, genre }) {
   return (
     <div className="uk-margin">
-      <label className="uk-form-label" htmlFor="genre">
+      <label className="uk-form-label" htmlFor="genre_id">
         Genre
       </label>
       <div className="uk-form-controls">
         <select
           className="uk-select"
-          id="genre"
-          name="genreId"
+          id="genre_id"
+          name="genre_id"
+          value={genre}
           onChange={handleChange}
         >
           <option value={1}>Horror</option>

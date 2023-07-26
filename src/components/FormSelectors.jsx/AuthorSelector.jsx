@@ -1,14 +1,15 @@
-export default function AuthorSelector({ handleChange }) {
+export default function AuthorSelector({ handleChange, author }) {
   return (
     <div className="uk-margin">
-      <label className="uk-form-label" htmlFor="author">
+      <label className="uk-form-label" htmlFor="author_id">
         Author
       </label>
       <div className="uk-form-controls">
         <select
           className="uk-select"
-          id="author"
-          name="authorId"
+          id="author_id"
+          name="author_id"
+          value={author}
           onChange={handleChange}
         >
           <option value={1}>Yuval Noah Harari</option>

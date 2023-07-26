@@ -1,14 +1,15 @@
-export default function PublisherSelector({ handleChange }) {
+export default function PublisherSelector({ handleChange, publisher }) {
   return (
     <div className="uk-margin">
-      <label className="uk-form-label" htmlFor="publisher">
+      <label className="uk-form-label" htmlFor="publisher_id">
         Publisher
       </label>
       <div className="uk-form-controls">
         <select
           className="uk-select"
-          id="publisher"
-          name="publisherId"
+          id="publisher_id"
+          name="publisher_id"
+          value={publisher}
           onChange={handleChange}
         >
           <option value={1}>Penguin Publishing Group</option>

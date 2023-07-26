@@ -66,7 +66,7 @@ export default function AddBookForm() {
           />
         </div>
       </div>
-      <GenreSelector handleChange={handleChange} />
+      <GenreSelector handleChange={handleChange} genre={book.genre_id} />
       <div className="uk-margin">
         <label className="uk-form-label" htmlFor="description">
           Description
@@ -82,7 +82,10 @@ export default function AddBookForm() {
           />
         </div>
       </div>
-      <LanguageSelector handleChange={handleChange} />
+      <LanguageSelector
+        handleChange={handleChange}
+        language={book.language_id}
+      />
       <div className="uk-margin">
         <label className="uk-form-label" htmlFor="pages">
           Pages
@@ -128,8 +131,11 @@ export default function AddBookForm() {
           />
         </div>
       </div>
-      <PublisherSelector handleChange={handleChange} />
-      <AuthorSelector handleChange={handleChange} />
+      <PublisherSelector
+        handleChange={handleChange}
+        publisher={book.publisher_id}
+      />
+      <AuthorSelector handleChange={handleChange} author={book.author_id} />
       <div className="uk-margin">
         <label className="uk-form-label" htmlFor="price">
           Price

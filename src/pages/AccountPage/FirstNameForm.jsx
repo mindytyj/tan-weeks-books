@@ -7,7 +7,7 @@ import { updateFirstName } from "../../utilities/users-service";
 export default function FirstNameForm() {
   const userId = useAtomValue(userAtom);
   const [newFirstName, setNewFirstName] = useState({ firstName: "" });
-  const [error, setError] = useState("Error");
+  const [error, setError] = useState("");
   const setUser = useSetAtom(userAtom);
   const navigate = useNavigate();
 

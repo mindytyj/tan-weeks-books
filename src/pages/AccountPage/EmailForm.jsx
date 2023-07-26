@@ -7,7 +7,7 @@ import { updateEmail } from "../../utilities/users-service";
 export default function EmailForm() {
   const userId = useAtomValue(userAtom);
   const [newEmail, setNewEmail] = useState({ email: "" });
-  const [error, setError] = useState("Error");
+  const [error, setError] = useState("");
   const setUser = useSetAtom(userAtom);
   const navigate = useNavigate();
 

@@ -10,7 +10,7 @@ export default function PasswordForm() {
     password: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState("Error");
+  const [error, setError] = useState("");
   const setUser = useSetAtom(userAtom);
   const navigate = useNavigate();
 

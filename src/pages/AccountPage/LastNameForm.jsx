@@ -7,7 +7,7 @@ import { updateLastName } from "../../utilities/users-service";
 export default function LastNameForm() {
   const userId = useAtomValue(userAtom);
   const [newLastName, setNewLastName] = useState({ lastName: "" });
-  const [error, setError] = useState("Error");
+  const [error, setError] = useState("");
   const setUser = useSetAtom(userAtom);
   const navigate = useNavigate();
 

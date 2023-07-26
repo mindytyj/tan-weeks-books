@@ -29,19 +29,19 @@ export default function CartItem({ book }) {
     <tr>
       <td>
         <img
-          className="uk-preserve-width uk-border-circle"
-          src="images/avatar.jpg"
+          className="uk-preserve-width"
+          src={book.image_url}
           width="40"
           height="40"
-          alt=""
+          alt={book.title}
         />
       </td>
-      <td className="uk-text-truncate">
+      <td className="uk-text-truncate uk-table-middle">
         <Link to={`/books/${book.id}`} className="uk-button-link">
           {book.title}
         </Link>
       </td>
-      <td className="uk-text-nowrap">
+      <td className="uk-text-nowrap uk-table-middle">
         <AddQtyButton
           book={book}
           totalQty={totalQty}
@@ -54,9 +54,11 @@ export default function CartItem({ book }) {
           setTotalQty={setTotalQty}
         />
       </td>
-      <td className="uk-text-nowrap">${book.price}</td>
-      <td className="uk-text-nowrap">${Number(totalPrice).toFixed(2)}</td>
-      <td>
+      <td className="uk-text-nowrap uk-table-middle">${book.price}</td>
+      <td className="uk-text-nowrap uk-table-middle">
+        ${Number(totalPrice).toFixed(2)}
+      </td>
+      <td className="uk-table-middle">
         <RemoveFromCartButton book={book} />
       </td>
     </tr>

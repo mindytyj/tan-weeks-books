@@ -51,7 +51,7 @@ export default function NavBar() {
                       <Link to={"/genres/7"}>Biography</Link>
                     </li>
                     <li>
-                      <Link to={"/genres/9"}>Kids</Link>
+                      <Link to={"/genres/8"}>Kids</Link>
                     </li>
                   </ul>
                 </div>

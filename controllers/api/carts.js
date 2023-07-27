@@ -4,7 +4,8 @@ async function retrieveCart(req, res) {
   const userId = req.params.userId;
   try {
     const cart = await pool.query(
-      `SELECT books.id, books.title, books.price, carts.qty, users.first_name, users.last_name FROM carts JOIN books ON books.id = carts.book_id JOIN users ON users.id = carts.user_id WHERE carts.user_id = ${userId};`
+      "SELECT books.id, books.title, books.price, books.image_url, carts.qty, users.first_name, users.last_name FROM carts JOIN books ON books.id = carts.book_id JOIN users ON users.id = carts.user_id WHERE carts.user_id = ($1) ORDER BY books.id ASC",
+      [userId]
     );
     res.status(200).json(cart);
   } catch (error) {
@@ -15,7 +16,8 @@ async function retrieveCart(req, res) {
 async function addToCart(req, res) {
   try {
     const checkDuplicate = await pool.query(
-      `SELECT book_id, user_id FROM carts WHERE book_id = ${req.body.bookId} AND user_id = ${req.body.userId}`
+      "SELECT book_id, user_id FROM carts WHERE book_id = ($1) AND user_id = ($2)",
+      [req.body.bookId, req.body.userId]
     );
 
     if (

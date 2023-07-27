@@ -23,6 +23,7 @@ import { adminAtom } from "../../utilities/adminContext";
 import EditBookPage from "../EditBookPage/EditBookPage";
 import AddBookPage from "../AddBookPage/AddBookPage";
 import AdminAuthPage from "../AdminAuthPage/AdminAuthPage";
+import EditBookReviewPage from "../EditBookReviewPage/EditBookReviewPage";
 
 export default function App() {
   const setIsAdmin = useSetAtom(adminAtom);
@@ -48,6 +49,10 @@ export default function App() {
             element={<OrderConfirmationPage />}
           />
           <Route path="/books/:id/review" element={<BookReviewPage />} />
+          <Route
+            path="/books/:id/review/edit"
+            element={<EditBookReviewPage />}
+          />
           <Route path="/account/:id/settings" element={<AccountPage />} />
           <Route
             path="/account/:id/settings/edit/first-name"

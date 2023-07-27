@@ -30,7 +30,7 @@ export default function NewArrivals() {
       <div className="uk-h3 uk-text-center">New Arrivals</div>
       <div
         className="uk-position-relative uk-visible-toggle uk-light"
-        tabindex="-1"
+        data-tabindex="-1"
         data-uk-slider
       >
         <ul className="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@m uk-grid">

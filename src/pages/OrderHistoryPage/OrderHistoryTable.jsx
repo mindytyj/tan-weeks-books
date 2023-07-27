@@ -43,8 +43,8 @@ export default function OrderHistoryTable() {
         </tr>
       </thead>
       <tbody>
-        {orderHistory.map((book) => {
-          return <OrderHistoryItem book={book} />;
+        {orderHistory.map((book, index) => {
+          return <OrderHistoryItem book={book} key={index} />;
         })}
       </tbody>
     </table>

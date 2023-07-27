@@ -9,10 +9,12 @@ async function createUser(req, res) {
       parseInt(process.env.SALT_ROUNDS)
     );
     await pool.query(
-      `INSERT INTO users (first_name, last_name, email, password) VALUES('${req.body.firstName}', '${req.body.lastName}', '${req.body.email}', '${hashedPW}') RETURNING *`
+      "INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *",
+      [req.body.firstName, req.body.lastName, req.body.email, hashedPW]
     );
     const user = await pool.query(
-      `SELECT id, first_name, last_name, email FROM users WHERE email = '${req.body.email}'`
+      "SELECT id, first_name, last_name, email FROM users WHERE email = ($1)",
+      [req.body.email]
     );
     const token = createJWT(user.rows[0]);
     res.status(200).json(token);
@@ -24,11 +26,13 @@ async function createUser(req, res) {
 async function login(req, res) {
   try {
     const user = await pool.query(
-      `SELECT id, first_name, last_name, email FROM users WHERE email = '${req.body.email}'`
+      "SELECT id, first_name, last_name, email FROM users WHERE email = ($1)",
+      [req.body.email]
     );
     if (!user) throw new Error("User not found.");
     const userPW = await pool.query(
-      `SELECT password FROM users WHERE email = '${req.body.email}'`
+      "SELECT password FROM users WHERE email = ($1)",
+      [req.body.email]
     );
     const match = await bcrypt.compare(
       req.body.password,
@@ -45,10 +49,12 @@ async function updateFirstName(req, res) {
   const userId = req.params.userId;
   try {
     await pool.query(
-      `UPDATE users SET first_name = '${req.body.firstName}' WHERE users.id = ${userId}`
+      "UPDATE users SET first_name = ($1) WHERE users.id = ($2)",
+      [req.body.firstName, userId]
     );
     const user = await pool.query(
-      `SELECT id, first_name, last_name, email FROM users WHERE users.id = ${userId}`
+      "SELECT id, first_name, last_name, email FROM users WHERE users.id = ($1)",
+      [userId]
     );
     if (!user) throw new Error("User not found.");
     res.json(createJWT(user.rows[0]));
@@ -62,10 +68,12 @@ async function updateLastName(req, res) {
   const userId = req.params.userId;
   try {
     await pool.query(
-      `UPDATE users SET last_name = '${req.body.lastName}' WHERE users.id = ${userId}`
+      "UPDATE users SET last_name = ($1) WHERE users.id = ($2)",
+      [req.body.lastName, userId]
     );
     const user = await pool.query(
-      `SELECT id, first_name, last_name, email FROM users WHERE users.id = ${userId}`
+      "SELECT id, first_name, last_name, email FROM users WHERE users.id = ($1)",
+      [userId]
     );
     if (!user) throw new Error("User not found.");
     res.json(createJWT(user.rows[0]));
@@ -78,11 +86,13 @@ async function updateLastName(req, res) {
 async function updateEmail(req, res) {
   const userId = req.params.userId;
   try {
-    await pool.query(
-      `UPDATE users SET email = '${req.body.email}' WHERE users.id = ${userId}`
-    );
+    await pool.query("UPDATE users SET email = ($1) WHERE users.id = ($2)", [
+      req.body.email,
+      userId,
+    ]);
     const user = await pool.query(
-      `SELECT id, first_name, last_name, email FROM users WHERE users.id = ${userId}`
+      "SELECT id, first_name, last_name, email FROM users WHERE users.id = ($1)",
+      [userId]
     );
     if (!user) throw new Error("User not found.");
     res.json(createJWT(user.rows[0]));
@@ -99,11 +109,13 @@ async function updatePassword(req, res) {
       req.body.password,
       parseInt(process.env.SALT_ROUNDS)
     );
-    await pool.query(
-      `UPDATE users SET password = '${hashedPW}' WHERE users.id = ${userId}`
-    );
+    await pool.query("UPDATE users SET password = ($1) WHERE users.id = ($2)", [
+      hashedPW,
+      userId,
+    ]);
     const user = await pool.query(
-      `SELECT id, first_name, last_name, email FROM users WHERE users.id = ${userId}`
+      "SELECT id, first_name, last_name, email FROM users WHERE users.id = ($1)",
+      [userId]
     );
     if (!user) throw new Error("User not found.");
     res.json(createJWT(user.rows[0]));

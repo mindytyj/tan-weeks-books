@@ -5,7 +5,8 @@ async function retrieveWishlist(req, res) {
 
   try {
     const wishlist = await pool.query(
-      `SELECT books.id, books.title, books.image_url FROM wishlists JOIN books ON books.id = wishlists.book_id WHERE wishlists.user_id = ${userId}`
+      "SELECT books.id, books.title, books.image_url FROM wishlists JOIN books ON books.id = wishlists.book_id WHERE wishlists.user_id = ($1)",
+      [userId]
     );
     res.status(200).json(wishlist.rows);
   } catch (error) {
@@ -16,7 +17,8 @@ async function retrieveWishlist(req, res) {
 async function addToWishlist(req, res) {
   try {
     const checkDuplicate = await pool.query(
-      `SELECT book_id, user_id FROM wishlists WHERE book_id = ${req.body.bookId} AND user_id = ${req.body.userId}`
+      "SELECT book_id, user_id FROM wishlists WHERE book_id = ($1) AND user_id = ($2)",
+      [req.body.bookId, req.body.userId]
     );
 
     if (
@@ -27,7 +29,8 @@ async function addToWishlist(req, res) {
     }
 
     await pool.query(
-      `INSERT INTO wishlists (book_id, user_id) VALUES (${req.body.bookId}, ${req.body.userId})`
+      "INSERT INTO wishlists (book_id, user_id) VALUES ($1, $2)",
+      [req.body.bookId, req.body.userId]
     );
     res.status(200).json("Successfully added book to wishlist.");
   } catch (error) {
@@ -41,7 +44,8 @@ async function deleteWishlistItem(req, res) {
 
   try {
     await pool.query(
-      `DELETE FROM wishlists WHERE wishlists.user_id = ${userId} AND wishlists.book_id = ${bookId}`
+      "DELETE FROM wishlists WHERE wishlists.user_id = ($1) AND wishlists.book_id = ($2)",
+      [userId, bookId]
     );
     res.status(200).json("Book has been successfully deleted from wishlist.");
   } catch (error) {

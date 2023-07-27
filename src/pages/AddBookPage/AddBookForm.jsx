@@ -43,8 +43,6 @@ export default function AddBookForm() {
     setBook({ ...book, [event.target.name]: event.target.value });
   }
 
-  console.log(book);
-
   return (
     <form
       className="uk-form-stacked uk-padding"

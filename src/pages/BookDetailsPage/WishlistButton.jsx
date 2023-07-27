@@ -32,7 +32,9 @@ export default function WishlistButton() {
         className="uk-icon-button uk-button-danger uk-margin-left "
         uk-icon="heart"
         onClick={addToWishlist}
-        data-uk-toggle="target: #wishlistModal"
+        data-uk-toggle={
+          user ? "target: #wishlistModal" : "target: #nonUserWishlistModal"
+        }
       />
       <div id="wishlistModal" className="uk-flex-top" data-uk-modal>
         <div className="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
@@ -41,13 +43,19 @@ export default function WishlistButton() {
             type="button"
             data-uk-close
           />
-          {user ? (
-            <p className="uk-text-center">{wishlistMsg}</p>
-          ) : (
-            <p className="uk-text-center">
-              Join as a T-WB member to add to wishlist.
-            </p>
-          )}
+          <p className="uk-text-center">{wishlistMsg}</p>
+        </div>
+      </div>
+      <div id="nonUserWishlistModal" className="uk-flex-top" data-uk-modal>
+        <div className="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+          <button
+            className="uk-modal-close-default"
+            type="button"
+            data-uk-close
+          />
+          <p className="uk-text-center">
+            Join as a T-WB member to add to wishlist.
+          </p>
         </div>
       </div>
     </>

@@ -10,13 +10,13 @@ export default function SideNavBar() {
       <ul className="uk-nav uk-nav-default">
         <li className="uk-nav-header">My Account</li>
         <li>
-          <Link to={`/account/${user.id}/settings`}>Settings</Link>
+          <Link to={`/account/${user?.id}/settings`}>Settings</Link>
         </li>
         <li>
-          <Link to={`/account/${user.id}/wishlist`}>Wishlist</Link>
+          <Link to={`/account/${user?.id}/wishlist`}>Wishlist</Link>
         </li>
         <li>
-          <Link to={`/account/${user.id}/order-history`}>Order History</Link>
+          <Link to={`/account/${user?.id}/order-history`}>Order History</Link>
         </li>
       </ul>
     </div>

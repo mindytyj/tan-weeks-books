@@ -40,10 +40,6 @@ export default function SignUpForm() {
       delete formData.confirmPW;
       const user = await signUp(formData);
       setUser(user);
-
-      if (user) {
-        navigate("/");
-      }
     } catch (err) {
       setNewUser({
         ...newUser,

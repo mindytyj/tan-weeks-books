@@ -25,6 +25,15 @@ export default function SignUpForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (newUser.password !== newUser.confirmPW) {
+      setNewUser({
+        ...newUser,
+        errorMessage: "Passwords do not match.",
+      });
+      return;
+    }
+
     try {
       const formData = { ...newUser };
       delete formData.errorMessage;
@@ -49,7 +58,7 @@ export default function SignUpForm() {
     newUser.lastName === "" ||
     newUser.email === "" ||
     newUser.password === "" ||
-    newUser.confirmPW !== newUser.password;
+    newUser.confirmPW === "";
 
   return (
     <form

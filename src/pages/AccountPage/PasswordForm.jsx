@@ -40,9 +40,6 @@ export default function PasswordForm() {
     }
   }
 
-  const disable =
-    newPassword.password === "" || newPassword.confirmPassword === "";
-
   return (
     <form autoComplete="off" onSubmit={handleSubmit}>
       <div className="uk-margin uk-text-center">
@@ -76,7 +73,6 @@ export default function PasswordForm() {
       <button
         className="uk-button uk-button-secondary uk-align-center"
         type="submit"
-        disabled={disable}
       >
         Confirm
       </button>

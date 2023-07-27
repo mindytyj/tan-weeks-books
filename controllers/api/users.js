@@ -4,7 +4,6 @@ const { pool } = require("../../config/database");
 
 async function createUser(req, res) {
   try {
-    console.log(req.body);
     const hashedPW = await bcrypt.hash(
       req.body.password,
       parseInt(process.env.SALT_ROUNDS)

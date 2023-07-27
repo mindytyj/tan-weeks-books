@@ -114,7 +114,6 @@ async function editBook(req, res) {
 
 async function addBook(req, res) {
   const book = req.body.formData;
-  console.log(book);
 
   try {
     await pool.query(
@@ -136,7 +135,6 @@ async function addBook(req, res) {
     );
     res.status(200).json("Successfully added book.");
   } catch (error) {
-    console.log(error);
     res.status(400).json(error.message);
   }
 }

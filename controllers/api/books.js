@@ -1,5 +1,17 @@
 const { pool } = require("../../config/database");
 
+async function getNewArrivals(req, res) {
+  try {
+    const newArrivals = await pool.query(
+      "SELECT id, title, image_url FROM books ORDER BY publication_date DESC LIMIT 5"
+    );
+    if (!newArrivals) throw new Error("There are no new arrivals available.");
+    res.status(200).json(newArrivals.rows);
+  } catch {
+    res.status(400).json("Unable to retrieve new arrivals.");
+  }
+}
+
 async function getAllBooks(req, res) {
   try {
     const books = await pool.query(
@@ -161,6 +173,7 @@ async function addBook(req, res) {
 }
 
 module.exports = {
+  getNewArrivals,
   getAllBooks,
   getGenreBooks,
   getBookDetails,

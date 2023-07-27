@@ -49,7 +49,7 @@ export default function EditBookReviewForm({ review, setReview }) {
           </div>
         </div>
 
-        <div className="uk-margin">
+        <div className="uk-margin uk-form-width-small">
           <div className="uk-form-label">Recommendation</div>
           <div className="uk-form-controls">
             <select

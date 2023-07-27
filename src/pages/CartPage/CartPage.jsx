@@ -5,7 +5,6 @@ import { userAtom } from "../../utilities/userContext";
 import CheckOut from "./CheckOut";
 import CartTable from "./CartTable";
 import { cartAtom, cartTotalAtom } from "./cartContext";
-import { useNavigate } from "react-router-dom";
 import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 
 export default function CartPage() {
@@ -14,14 +13,13 @@ export default function CartPage() {
   const setCartItems = useSetAtom(cartAtom);
   const setCartTotal = useSetAtom(cartTotalAtom);
   const cartTotal = useAtomValue(cartTotalAtom);
-  const navigate = useNavigate();
-
-  if (!user) {
-    navigate("/login");
-  }
 
   useEffect(() => {
     async function getAllCartItems() {
+      if (!user) {
+        return;
+      }
+
       try {
         setLoading(true);
         const allCartItems = await sendRequest(`/api/carts/${user.id}`, "GET");

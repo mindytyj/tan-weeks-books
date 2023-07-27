@@ -5,7 +5,7 @@ async function retrieveOrders(req, res) {
 
   try {
     const orderHistory = await pool.query(
-      "SELECT books.id, books.title, books.image_url, order_details.qty, order_details.total FROM order_details JOIN books ON books.id = order_details.book_id JOIN orders ON orders.id = order_details.order_id WHERE orders.user_id = ($1)",
+      "SELECT books.id, books.title, books.image_url, order_details.qty, order_details.total FROM order_details JOIN books ON books.id = order_details.book_id JOIN orders ON orders.id = order_details.order_id WHERE orders.user_id = ($1) ORDER BY order_details.order_id DESC",
       [userId]
     );
     if (!orderHistory)
@@ -22,6 +22,10 @@ async function addToOrder(req, res) {
       "INSERT INTO orders (user_id) VALUES ($1) RETURNING orders.id",
       [req.body.userId]
     );
+    if (!orderId)
+      throw new Error(
+        "Unable to retrieve order id. Failed to create a new order."
+      );
     await req.body.cart.map((cartItem) => {
       pool.query(
         "INSERT INTO order_details (book_id, qty, total, order_id) VALUES ($1, $2, $3, $4)",

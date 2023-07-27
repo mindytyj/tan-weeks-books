@@ -11,10 +11,7 @@ export default function Reviews() {
   useEffect(() => {
     async function getReviews() {
       try {
-        const allReviews = await sendRequest(
-          `/api/books/${book.id}/reviews`,
-          "GET"
-        );
+        const allReviews = await sendRequest(`/api/reviews/${book.id}`, "GET");
         setReviews(allReviews);
       } catch (error) {
         console.error(error.message);

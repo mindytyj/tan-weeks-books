@@ -18,7 +18,7 @@ export default function BookReviewForm({ book }) {
 
     try {
       const formData = { ...review };
-      await sendRequest(`/api/books/${book.id}/reviews/${user.id}`, "POST", {
+      await sendRequest(`/api/reviews/${book.id}/${user.id}`, "POST", {
         formData,
       });
       navigate(`/books/${book.id}`);

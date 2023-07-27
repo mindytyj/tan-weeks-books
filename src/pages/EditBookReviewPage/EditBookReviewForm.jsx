@@ -51,26 +51,17 @@ export default function EditBookReviewForm({ review, setReview }) {
 
         <div className="uk-margin">
           <div className="uk-form-label">Recommendation</div>
-          <div className="uk-form-controls" onChange={handleChange}>
-            <label>
-              <input
-                className="uk-radio uk-margin-small-right	"
-                type="radio"
-                name="recommendation"
-                value="yes"
-              />
-              Yes
-            </label>
-            <br />
-            <label>
-              <input
-                className="uk-radio uk-margin-small-right"
-                type="radio"
-                name="recommendation"
-                value="no"
-              />
-              No
-            </label>
+          <div className="uk-form-controls">
+            <select
+              className="uk-select"
+              id="recommendation"
+              name="recommendation"
+              value={review.recommendation}
+              onChange={handleChange}
+            >
+              <option value={"yes"}>Yes</option>
+              <option value={"no"}>No</option>
+            </select>
           </div>
         </div>
       </fieldset>

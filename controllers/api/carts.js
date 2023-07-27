@@ -28,7 +28,8 @@ async function addToCart(req, res) {
     }
 
     await pool.query(
-      `INSERT INTO carts (book_id, qty, user_id) VALUES (${req.body.bookId}, ${req.body.qty}, ${req.body.userId})`
+      "INSERT INTO carts (book_id, qty, user_id) VALUES ($1, $2, $3)",
+      [req.body.bookId, req.body.qty, req.body.userId]
     );
     res.status(200).json("Successfully added book to cart.");
   } catch (error) {
@@ -42,7 +43,8 @@ async function deleteCartItem(req, res) {
 
   try {
     await pool.query(
-      `DELETE FROM carts WHERE carts.user_id = ${userId} AND carts.book_id = ${bookId}`
+      "DELETE FROM carts WHERE carts.user_id = ($1) AND carts.book_id = ($2)",
+      [userId, bookId]
     );
     res.status(200).json("Book has been successfully deleted from cart.");
   } catch (error) {
@@ -56,7 +58,8 @@ async function updateCartQty(req, res) {
 
   try {
     await pool.query(
-      `UPDATE carts SET qty = ${req.body.qty} WHERE user_id = ${userId} and book_id = ${bookId}`
+      "UPDATE carts SET qty = ($1) WHERE user_id = ($2) and book_id = ($3)",
+      [req.body.qty, userId, bookId]
     );
     res.status(200).json("Successfully updated quantity.");
   } catch (error) {
@@ -70,7 +73,8 @@ async function getBookQty(req, res) {
 
   try {
     const bookQty = await pool.query(
-      `SELECT qty FROM carts WHERE user_id = ${userId} AND book_id = ${bookId}`
+      "SELECT qty FROM carts WHERE user_id = ($1) AND book_id = ($2)",
+      [userId, bookId]
     );
     res.status(200).json(bookQty.rows[0]);
   } catch (error) {
